@@ -10,7 +10,12 @@
      <li><a href="#kutuphaneler"> Kullanılan Kütüpahaneler </a></li>
      <li><a href="#api-istekleri"> API İstekleri </a></li>
         <ul>
-          <li><a href="#pagination-api"> Pagination GET  </a></li>
+          <li><a href="#pagination-api"> GET - Pagination   </a></li>
+          <li><a href="#all-api"> GET - All   </a></li>
+          <li><a href="#one-api"> GET - One </a></li>
+          <li><a href="#post-api"> POST  </a></li>
+          <li><a href="#delete-api"> DELETE  </a></li>
+          <li><a href="#put-api"> PUT  </a></li>
         </ul>
  </ul>
 
@@ -56,7 +61,7 @@ http://localhost:8000/cars/all
 </b>
 <img src="">
  <!-- **************************************************************************************************************************************************************** -->
-<h3 id="all-api">GET - One </h3>
+<h3 id="one-api">GET - One </h3>
 <p>Veriler arasından sadece Parça numarasına (ID) göre verimizi elde etmek için aşağıdaki link örneğini kullanıyoruz!</p>
 
 <b>
@@ -68,17 +73,17 @@ http://localhost:8000/cars/61f784c833bc6e663b55af88
 <img src="">
 
  <!-- **************************************************************************************************************************************************************** -->
-<h3 id="all-api">POST </h3>
+<h3 id="post-api">POST </h3>
 <p>Yeni parçaları dinamik olarak verilerimiz içine ekleyebiliyoruz!</p>
 
 <img src="">
  <!-- **************************************************************************************************************************************************************** -->
-<h3 id="all-api">DELETE </h3>
+<h3 id="delete-api">DELETE </h3>
 <p>Verilerimiz arasından eklediğimiz veriyi Parça numarasına(ID) göre silebiliriz!</p>
 
 <img src="">
  <!-- **************************************************************************************************************************************************************** -->
-<h3 id="all-api">PUT </h3>
+<h3 id="put-api">PUT </h3>
 <p>Değiştirmek istediğim verimizi ID ile kolaylıkla değiştirebilir!</p>
 
 <img src="">

@@ -20,6 +20,7 @@
           <li><a href="#delete-api"> DELETE  </a></li>
           <li><a href="#put-api"> PUT  </a></li>
         </ul>
+    <li><a href="#hata"> Hata Mesajı </a></li>
  </ul>
 
 <hr>
@@ -59,6 +60,8 @@ http://localhost:8000/cars?page=2&limit=3
 <p>Veriler çekildiğinde bizlere "next" altında sonraki sayfaya ait, "previous" kısmında ise önceki sayfaya ait veriler gösterilir. "result" altında bulunan veriler o sayfada listelenen verilerdir!</p>
 <img src="https://raw.githubusercontent.com/icanerdogan/RestfulAPI-OtokocOtomotiv/master/images/GET-%20Pagination%20-%202.png">
  <!-- **************************************************************************************************************************************************************** -->
+<hr>
+
 <h4 id="all-api">GET - All </h4>
 <p>Tüm eklenen yedek parça verileri aynı anda görüntülenebilir!</p>
 
@@ -73,7 +76,9 @@ http://localhost:8000/cars/all
 <p>Tüm veriler JSON veri tipinde eklendiği sırada görüldüğü gibi gelir!</p>
 <img src="https://github.com/icanerdogan/RestfulAPI-OtokocOtomotiv/blob/master/images/GET-%20All%20-%202.png">
  <!-- **************************************************************************************************************************************************************** -->
-<h3 id="one-api">GET - One </h3>
+<hr>
+
+<h4 id="one-api">GET - One </h4>
 <p>İstenilen parça numarasına (ID) göre verimizi elde etmek için kullanılır!</p>
 
 <b>
@@ -86,7 +91,8 @@ http://localhost:8000/cars/61f784c833bc6e663b55af88
 <img src="https://github.com/icanerdogan/RestfulAPI-OtokocOtomotiv/blob/master/images/GET-%20One%20-%201.png">
 <p>Tek bir parçaya ait veriler görüldüğü gibi getirilir!</p>
 <img src="https://github.com/icanerdogan/RestfulAPI-OtokocOtomotiv/blob/master/images/GET-%20One%20-%202.png">
- <!-- **************************************************************************************************************************************************************** -->
+
+<!-- **************************************************************************************************************************************************************** -->
 <h3 id="post-api">POST </h3>
 <p>Yeni parçaları dinamik olarak verilerimiz içine ekleyebiliyoruz!</p>
 
@@ -116,4 +122,11 @@ http://localhost:8000/cars/61f784c833bc6e663b55af88
 <img src="https://github.com/icanerdogan/RestfulAPI-OtokocOtomotiv/blob/master/images/PATCH%20-%202.png">
 <p>Tüm verilerimizden kontrol ettiğimizde ilgili parça numaramıza ait verilerde istenilen değişiklikler gerçekleşmiştir!</p>
 <img src="https://github.com/icanerdogan/RestfulAPI-OtokocOtomotiv/blob/master/images/PATCH%20-%203.png">
+ <!-- **************************************************************************************************************************************************************** -->
+<h2 id="hata">HATA</h2>
 
+<p>Yapılan tüm isteklerin içinde parça numarası yanlış verilmesi halinde aşağıdaki uyarı görüntülenecektir!</p>
+<img src="https://github.com/icanerdogan/RestfulAPI-OtokocOtomotiv/blob/master/images/HATA.png">
+
+<p>Diğer hata mesajları da HTTP'den gelen yanıtlara göre gösterilecektir!</p>
+<img src="https://github.com/icanerdogan/RestfulAPI-OtokocOtomotiv/blob/master/images/HATA%20MESAJLARI.png">

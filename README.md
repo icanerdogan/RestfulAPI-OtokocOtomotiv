@@ -51,7 +51,7 @@ http://localhost:8000/cars?page=2&limit=5
 <img src="">
  <!-- **************************************************************************************************************************************************************** -->
 <h3 id="all-api">GET - All </h3>
-<p>Verilerin sayafalanmadan toplu bir halde görünmesi için aşaığdaki link örneğini kullanıyoruz!</p>
+<p>Verilerin sayfalanmadan toplu bir halde görünmesi için aşaığdaki link örneğini kullanıyoruz!</p>
 
 <b>
   

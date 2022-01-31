@@ -1,21 +1,94 @@
 const { response } = require('express');
 const express = require('express');
-const Car = require('../../models/Car')
+const Car = require('../../models/Car');
 
 const router = express.Router();
 
-router.get('/', (req, res, next) =>{
-    console.log(req.body);
-    res.status(200).json({
-        message: 'Products ekranında GET requesti çalıştı.'
-    });
+
+// PAGINATED GET
+router.get('/', async(req, res)=> {
+        const page = parseInt(req.query.page)
+        const limit = parseInt(req.query.limit)
+
+        const startIndex  = (page - 1) * limit
+        const endIndex = page * limit
+
+        const cars = await Car.find();
+
+        const results = {}
+
+        if(endIndex < cars.length){
+            results.next = {
+            page: page + 1,
+            limit: limit
+            }
+        }
+    
+        if(startIndex > 0){
+            results.previous = {
+            page: page - 1,
+            limit: limit
+            }
+        }
+    
+        results.results = cars.slice(startIndex, endIndex)
+        res.json(results)  
+    
+})
+
+// ALL GET
+router.get('/all', async(req, res) =>{
+    try{
+        const cars = await Car.find();
+        res.json(cars);
+    }
+    catch(err){
+        if(res.status(404)){
+            res.json({message: "Verilen ID'ye ait kurs bulunamadı!"}) 
+        }
+        else if(res.status(500)){
+            res.json({message: "Sunucuda bir hata oluştu ve istek karşılanamadı!"}) 
+        }
+        else if(res.status(501)){
+            res.json({message: "Sunucu istenilen isteği yerine getirecek şekilde yapılandırılmamıştır!"}) 
+        }
+        else{
+            res.json({message: err}) 
+        }
+    }
 });
 
+// ONE GET
+router.get('/:partID', async(req, res) =>{
+    try{
+        const selectedCar = await Car.findById(req.params.partID);
+        res.json(selectedCar);
+    }
+    catch(err){
+        if(res.status(404)){
+            res.json({message: "Verilen ID'ye ait kurs bulunamadı!"}) 
+        }
+        else if(res.status(500)){
+            res.json({message: "Sunucuda bir hata oluştu ve istek karşılanamadı!"}) 
+        }
+        else if(res.status(501)){
+            res.json({message: "Sunucu istenilen isteği yerine getirecek şekilde yapılandırılmamıştır!"}) 
+        }
+        else{
+            res.json({message: err}) 
+        }
+    }
+});
+
+// POST
 router.post('/', (req, res, next) =>{
-    //console.log(req.body);
     const car = new Car({
-        title: req.body.title,
-        description: req.body.description
+        name: req.body.name,
+        brand: req.body.brand,
+        model: req.body.model,
+        modelyear: req.body.modelyear,
+        image: req.body.image,
+        price: req.body.price,
     });
 
     car.save()
@@ -23,61 +96,79 @@ router.post('/', (req, res, next) =>{
             res.json(data);
         })
         .catch(err => {
-            res.json({message : err})
+            if(!req.body.name || req.body.name.length < 3){
+                res.json({message : "Ad zorunludur ve en az 3 karakter olmalıdır!"})
+            }
+
+            if(res.status(404)){
+                res.json({message: "İstek yapılan kaynaK (veya sayfanın) bulunamadı!"}) 
+            }
+            else if(res.status(500)){
+                res.json({message: "Sunucuda bir hata oluştu ve istek karşılanamadı!"}) 
+            }
+            else if(res.status(501)){
+                res.json({message: "Sunucu istenilen isteği yerine getirecek şekilde yapılandırılmamıştır!"}) 
+            }
+            else{
+                res.json({message: err}) 
+            }
+
         });
 });
- 
 
-router.get('/:partId', async (req, res, next) => {
-
+//DELETE 
+router.delete('/:partID', async(req, res) => {
     try{
-        const id = await Car.findById(req.params.partId);
-        res.json(id);
+        const removedPost = await Car.remove({_id: req.params.partID}) 
+        res.json(removedPost);
     }
-    catch (err){
-        res.json({message: err});
+    catch(err){
+        if(res.status(404)){
+            res.json({message: "Verilen ID'ye ait kurs bulunamadı!"}) 
+        }
+        else if(res.status(500)){
+            res.json({message: "Sunucuda bir hata oluştu ve istek karşılanamadı!"}) 
+        }
+        else if(res.status(501)){
+            res.json({message: "Sunucu istenilen isteği yerine getirecek şekilde yapılandırılmamıştır!"}) 
+        }
+        else{
+            res.json({message: err}) 
+        }
     }
-    /*if(id == 1){
-        res.status(200).json({
-            message: "Ürün1 Getirildi!",
-            id: id
-        });
-    }
-    else{
-        res.status(200).json({
-            message: "ID'ye ait Ürün Bulunamadı!"
-        })
-    }*/
-});
+    
+})
 
-router.delete('/:partId', async (req, res, next) =>{
+//PUT
+router.patch('/:partID', async(req, res) => {
     try{
-        const id = await Car.remove({_id: req.params.partId});
-        res.json(id);
-    }
-    catch (err){
-        res.json({message: err});
-    }
-});
+        const updatedPost = await Car.updateOne({_id: req.params.partID}, {$set: {
+            name: req.body.name,
+            brand: req.body.brand,
+            model: req.body.model,
+            modelyear: req.body.modelyear,
+            image: req.body.image,
+            price: req.body.price
+        }}) 
 
-router.patch('/:partId', async (req, res, next) =>{
-    try{
-        const id = await Car.updateOne(
-            {_id: req.params.partId},
-            {$set : {title: req.body.title}}
-        );
-        res.json(id);
+        res.json(updatedPost);
     }
-    catch (err){
-        res.json({message: err});
+    catch(err){
+        if(res.status(404)){
+            res.json({message: "Verilen ID'ye ait kurs bulunamadı!"}) 
+        }
+        else if(res.status(500)){
+            res.json({message: "Sunucuda bir hata oluştu ve istek karşılanamadı!"}) 
+        }
+        else if(res.status(501)){
+            res.json({message: "Sunucu istenilen isteği yerine getirecek şekilde yapılandırılmamıştır!"}) 
+        }
+        else{
+            res.json({message: err}) 
+        }
     }
-});
+    
+})
 
-/*
-router.patch('/:partId', (req, res, next) =>{
-    res.status(200).json({
-        message: 'Products ekranında PATCH requesti çalıştı.'
-    });
-});
-*/
+
 module.exports = router;

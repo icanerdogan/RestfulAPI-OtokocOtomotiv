@@ -4,6 +4,7 @@
   "description": "Otokoç Restful Api",
   "main": "index.js",
   "scripts": {
+    "serve": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "İbrahim Can Erdoğan",
@@ -12,6 +13,11 @@
     "body-parser": "^1.19.1",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
-    "mongoose": "^6.1.8"
+    "flatted": "^3.2.5",
+    "mongoose": "^6.1.8",
+    "stringify": "^5.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
